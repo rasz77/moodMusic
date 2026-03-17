@@ -2,9 +2,7 @@ import csv
 import math
 import random
 
-# =========================================================
 # 1. LOAD SONG DATA
-# =========================================================
 
 def load_songs(filename):
     songs = []
@@ -27,10 +25,7 @@ def load_songs(filename):
             songs.append(song)
     return songs
 
-
-# =========================================================
 # 2. NORMALIZE FEATURES
-# =========================================================
 
 def min_max_normalize_songs(songs, feature_names):
     mins = {}
@@ -52,11 +47,8 @@ def min_max_normalize_songs(songs, feature_names):
 
     return songs
 
-
-# =========================================================
 # 3. CONTENT-BASED FILTERING
 # Andrew Ng style: score = theta^T x
-# =========================================================
 
 FEATURES = [
     'valence_norm',
@@ -134,10 +126,7 @@ def recommend_content_based(songs, user_vector, top_n=10, exclude_song_ids=None)
     scored.sort(key=lambda x: x[0], reverse=True)
     return scored[:top_n]
 
-
-# =========================================================
 # 4. LOAD RATINGS
-# =========================================================
 
 def load_ratings(filename):
     ratings = []
@@ -151,10 +140,7 @@ def load_ratings(filename):
             })
     return ratings
 
-
-# =========================================================
 # 5. BUILD INDEX MAPS
-# =========================================================
 
 def build_index_maps(songs, ratings):
     song_ids = [song['id'] for song in songs]
@@ -185,12 +171,9 @@ def build_index_maps(songs, ratings):
 
     return user_list, song_list, user_to_index, song_to_index
 
-
-# =========================================================
 # 6. BUILD Y AND R MATRICES
 # Y[i][j] = rating by user j on song i
 # R[i][j] = 1 if rating exists, else 0
-# =========================================================
 
 def build_rating_matrices(ratings, user_to_index, song_to_index):
     num_songs = len(song_to_index)
@@ -216,18 +199,16 @@ def build_rating_matrices(ratings, user_to_index, song_to_index):
 
     return Y, R
 
-
-# =========================================================
 # 7. COLLABORATIVE FILTERING FROM SCRATCH
 # Andrew Ng style matrix factorization
 #
 # Prediction:
 #   y_hat(i,j) = X[i] dot Theta[j]
-#
+
 # Cost:
 #   1/2 * sum(R[i][j] * (X[i] dot Theta[j] - Y[i][j])^2)
 #   + lambda/2 * sum(Theta^2) + lambda/2 * sum(X^2)
-# =========================================================
+
 
 def initialize_matrix(rows, cols):
     matrix = []
@@ -305,11 +286,8 @@ def recommend_collaborative_for_user(user_id, user_to_index, song_list, X, Theta
     recommendations.sort(key=lambda x: x[0], reverse=True)
     return recommendations[:top_n]
 
-
-# =========================================================
 # 8. HYBRID SYSTEM
 # final_score = beta * content_score + (1-beta) * collaborative_score
-# =========================================================
 
 def build_song_lookup(songs):
     lookup = {}
@@ -360,10 +338,7 @@ def recommend_hybrid(
     results.sort(key=lambda x: x[0], reverse=True)
     return results[:top_n]
 
-
-# =========================================================
 # 9. MAIN PROGRAM
-# =========================================================
 
 def print_song_results(title, recommendations):
     print("\n" + "=" * 70)
