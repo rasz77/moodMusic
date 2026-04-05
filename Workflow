@@ -1,6 +1,4 @@
-MoodMusic Workflow
-
-This project is a hybrid music recommendation system that suggests songs based on user mood and preferences.
+MoodMusic Workflow: This project is a hybrid music recommendation system that suggests songs based on users' moods and preferences.
 Dataset:
 Used a Spotify tracks dataset with audio features like valence, energy, danceability, and acousticness.
 Created a synthetic ratings dataset to simulate user-song interactions for collaborative filtering.
@@ -10,7 +8,7 @@ Cleaned and processed the dataset using generate_songs_dataset.py
 Generated user ratings using generate_synthetic_ratings.py
 
 Recommendation Approach:
-Content-Based Filtering: Recommends songs based on similarity of audio features.
+Content-Based Filtering: Recommends songs based on audio feature similarity.
 Collaborative Filtering: Uses matrix factorization to learn user preferences from ratings.
 Hybrid Model: Combines both approaches for better recommendations.
 
